@@ -36,6 +36,18 @@ class ImagesController extends BaseController
 
 	public function upload( Request $request )
 	{
+		$this->uploadCheckIfValid( $request );
+
+		$image_ddbb_path = $this->uploadSaveInDisk( $request );
+		$img             = $this->uploadSaveOnDDBB( $request, $image_ddbb_path );
+
+		return $img;
+
+	}
+
+	private function uploadCheckIfValid( Request $request )
+	{
+
 		if ( $request->hasFile( 'imagen' ) === false || $request->file( 'imagen' )->isValid() === false )
 			throw new InvalidParams( $request->imagen->getErrorMessage() );
 
@@ -57,11 +69,23 @@ class ImagesController extends BaseController
 				break;
 		}
 
+	}
+	private function uploadSaveInDisk( Request $request )
+	{
+
+		$client_extension = $request->imagen->getClientOriginalExtension();
+
 		$image_name          = time() . rand( 100000, 999999 ) . '.' . $client_extension;
 		$image_physical_path = self::IMAGES_PATH . $image_name;
 		$image_ddbb_path     = "/" . $image_physical_path;
 
 		move_uploaded_file( $_FILES[ 'imagen' ][ 'tmp_name' ], $image_physical_path );
+
+		return $image_ddbb_path;
+
+	}
+	private function uploadSaveOnDDBB( Request $request, $image_ddbb_path )
+	{
 
 		$img             = new Image();
 		$img->user_id    = NULL;
@@ -72,6 +96,5 @@ class ImagesController extends BaseController
 		$img->save();
 
 		return $img;
-
 	}
 }
