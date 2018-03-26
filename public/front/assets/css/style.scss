@@ -130,6 +130,13 @@ transition {
   padding         : 2rem;
   flex-wrap       : wrap;
 
+  h1 {
+    width      : 100%;
+    text-align : center;
+    font-size  : 4rem;
+    color      : $color_dark;
+  }
+
   .image {
     width               : 24%;
     height              : 30rem;
@@ -186,7 +193,7 @@ transition {
     right     : 1rem;
     color     : white;
     font-size : 4rem;
-    cursor: pointer;
+    cursor    : pointer;
   }
 
   .share {

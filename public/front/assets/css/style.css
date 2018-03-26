@@ -105,6 +105,11 @@ transition {
   align-items: center;
   padding: 2rem;
   flex-wrap: wrap; }
+  .list h1 {
+    width: 100%;
+    text-align: center;
+    font-size: 4rem;
+    color: #2A3132; }
   .list .image {
     width: 24%;
     height: 30rem;

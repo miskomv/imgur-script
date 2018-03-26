@@ -46,7 +46,7 @@
 			<div class="menu">
 
 				<a href="/">
-				<img src="/front/assets/images/logo-web.png">
+					<img src="/front/assets/images/logo-web.png">
 				</a>
 
 				<ul>
@@ -63,6 +63,7 @@
 
 			<transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
 				<div class="list" v-if="isView('home')">
+					<h1>Home</h1>
 					<div class="image" v-for="image in image_list" :style="{backgroundImage: 'url(' + image.path + ')'}">
 						<div class="capa_hover" @click.prevent="detailsShow(image)"><i class="fas fa-search-plus"></i></div>
 					</div>
@@ -77,6 +78,7 @@
 
 			<transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
 				<div class="list" v-if="isView('uploaded-files')">
+					<h1>Uploaded files</h1>
 					<div class="image" v-for="image in image_list" :style="{backgroundImage: 'url(' + image.path + ')'}">
 						<div class="capa_hover" @click.prevent="detailsShow(image)"><i class="fas fa-search-plus"></i></div>
 					</div>
