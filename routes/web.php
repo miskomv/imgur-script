@@ -11,6 +11,24 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->group( [ 'prefix' => 'images' ], function() use ( $router ) {
+
+	$router->get( 'list', 'ImagesController@list' );
+	$router->get( 'list/{page:\d+}', 'ImagesController@listPage' );
+	$router->get( 'info/{image_id:\d+}', 'ImagesController@info' );
+	$router->post( 'upload', 'ImagesController@upload' );
+} );
+
+$router->group( [ 'prefix' => 'users' ], function() use ( $router ) {
+
+	$router->post( 'login', 'UserController@login' );
+	$router->post( 'register', 'UserController@login' );
+
+	$router->group( [ 'middleware' => 'auth' ], function() use ( $router ) {
+		$router->post( 'update', [ 'middleware' => 'auth', 'uses' => 'UserController@update' ] );
+	} );
+
+} );
+
+$router->get( '/', 'FrontController@home' );
+$router->get( '/{image_code:\d{16}}', 'FrontController@imageDetails' );

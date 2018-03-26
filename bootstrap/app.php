@@ -1,12 +1,16 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 try {
-    (new Dotenv\Dotenv(__DIR__.'/../'))->load();
-} catch (Dotenv\Exception\InvalidPathException $e) {
-    //
+	( new Dotenv\Dotenv( __DIR__ . '/../' ) )->load();
 }
+catch ( Dotenv\Exception\InvalidPathException $e ) {
+	//
+}
+
+error_reporting( env( 'ERROR_REPORTING' ) );
+ini_set( 'display_errors', env( 'DISPLAY_ERRORS' ) );
 
 /*
 |--------------------------------------------------------------------------
@@ -19,14 +23,9 @@ try {
 |
 */
 
-$app = new Laravel\Lumen\Application(
-    realpath(__DIR__.'/../')
-);
-
-// $app->withFacades();
-
-// $app->withEloquent();
-
+$app = new Laravel\Lumen\Application( realpath( __DIR__ . '/../' ) );
+$app->withFacades();
+$app->withEloquent();
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -38,15 +37,11 @@ $app = new Laravel\Lumen\Application(
 |
 */
 
-$app->singleton(
-    Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Exceptions\Handler::class
-);
-
-$app->singleton(
-    Illuminate\Contracts\Console\Kernel::class,
-    App\Console\Kernel::class
-);
+$app->singleton( Illuminate\Contracts\Debug\ExceptionHandler::class, App\Exceptions\Handler::class );
+$app->singleton( Illuminate\Contracts\Console\Kernel::class, App\Console\Kernel::class );
+$app->singleton( Illuminate\Contracts\Filesystem\Factory::class, function( $app ) {
+	return new Illuminate\Filesystem\FilesystemManager( $app );
+} );
 
 /*
 |--------------------------------------------------------------------------
@@ -63,9 +58,7 @@ $app->singleton(
 //    App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware( [ 'auth' => App\Http\Middleware\Authenticate::class, ] );
 
 /*
 |--------------------------------------------------------------------------
@@ -78,8 +71,8 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+//$app->register(App\Providers\AppServiceProvider::class);
+$app->register( App\Providers\AuthServiceProvider::class );
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*
@@ -93,10 +86,8 @@ $app->singleton(
 |
 */
 
-$app->router->group([
-    'namespace' => 'App\Http\Controllers',
-], function ($router) {
-    require __DIR__.'/../routes/web.php';
-});
+$app->router->group( [ 'namespace' => 'App\Http\Controllers', ], function( $router ) {
+	require __DIR__ . '/../routes/web.php';
+} );
 
 return $app;
