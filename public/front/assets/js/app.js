@@ -4,7 +4,7 @@ window.onload = function () {
 
 	// window.onpopstate = window.mainHandler.onPopState;
 
-	new Vue( {
+	window.imgur = new Vue( {
 		el     : '#app',
 		router : router,
 		data   : {
@@ -61,7 +61,15 @@ window.onload = function () {
 				return (this.view.selected === view);
 			},
 			setView  : function ( new_view ) {
-				this.view.selected = new_view;
+
+				this.view.selected = 'none';
+
+				var handler = this;
+
+				setTimeout( function () {
+					handler.view.selected = new_view;
+				}, 350 );
+
 			},
 			appLoaded: function () {
 				this.app.loaded = true;

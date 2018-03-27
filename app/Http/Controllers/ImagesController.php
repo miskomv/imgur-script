@@ -21,7 +21,7 @@ class ImagesController extends BaseController
 
 	public function list()
 	{
-		return Image::inRandomOrder()->take( self::IMAGES_AT_HOME )->get();
+		return Image::orderBy( 'id', 'desc' )->take( self::IMAGES_AT_HOME )->get();
 	}
 
 	public function listPage( $page )
