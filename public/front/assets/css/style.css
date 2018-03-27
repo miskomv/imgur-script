@@ -12,6 +12,10 @@ body {
   background-color: #A1B8C3;
   font-family: 'Source Sans Pro', sans-serif; }
 
+a {
+  text-decoration: none;
+  color: #2A3132; }
+
 /* Vue */
 transition {
   display: none; }
@@ -170,7 +174,7 @@ transition {
     font-size: 3rem; }
   .details img {
     max-width: 85%;
-    max-height: 85%; }
+    max-height: 80%; }
 
 /* Responsive */
 @media (max-width: 1024px) {

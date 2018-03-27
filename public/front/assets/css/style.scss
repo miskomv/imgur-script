@@ -17,6 +17,10 @@ body {
   background-color : $color_light;
   font-family      : 'Source Sans Pro', sans-serif;
 }
+a {
+  text-decoration : none;
+  color           : $color_dark;
+}
 /* Vue */
 transition {
   display : none
@@ -194,7 +198,7 @@ transition {
     color     : white;
     font-size : 4rem;
     cursor    : pointer;
-    z-index: 999999;
+    z-index   : 999999;
   }
 
   .share {
@@ -210,7 +214,7 @@ transition {
 
   img {
     max-width  : 85%;
-    max-height : 85%;
+    max-height : 80%;
   }
 }
 /* Responsive */

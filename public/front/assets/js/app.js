@@ -54,10 +54,7 @@ window.onload = function () {
 
 			},
 			loadImageURLCallback: function ( response ) {
-
-				this.details.data    = response.data;
-				this.details.visible = true;
-				window.history.pushState( null, "", "/" + this.details.data.image_code );
+				this.detailsShow( response.data );
 			},
 
 			isView   : function ( view ) {
