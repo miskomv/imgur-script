@@ -196,7 +196,7 @@ window.onload = function () {
 				var porcentaje = Math.round( (upload_loaded * 100) / upload_total );
 
 				this.new_file.uploading[ upload_id ].uploaded   = (Math.round( upload_loaded / 1024 * 100 ) / 100) + ' kb';
-				this.new_file.uploading[ upload_id ].total      = (Math.round( upload_loaded / 1024 * 100 ) / 100) + ' kb';
+				this.new_file.uploading[ upload_id ].total      = (Math.round( upload_total / 1024 * 100 ) / 100) + ' kb';
 				this.new_file.uploading[ upload_id ].porcentaje = porcentaje;
 			},
 
