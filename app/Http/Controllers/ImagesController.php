@@ -29,9 +29,15 @@ class ImagesController extends BaseController
 		return Image::orderBy( 'id', 'desc' )->skip( $page * self::IMAGES_X_PAGE )->take( self::IMAGES_X_PAGE )->get();
 	}
 
-	public function info( $image_id )
+	public function infoByImageCode( $image_code )
 	{
-		return Image::find( $image_id );
+		$img = Image::where( 'image_code', '=', $image_code )->first();
+
+		if ( is_null( $img ) )
+			throw new InvalidImage( 'Code: ' . $image_code );
+
+		return $img;
+
 	}
 
 	public function upload( Request $request )
@@ -70,6 +76,7 @@ class ImagesController extends BaseController
 		}
 
 	}
+
 	private function uploadSaveInDisk( Request $request )
 	{
 
@@ -84,6 +91,7 @@ class ImagesController extends BaseController
 		return $image_ddbb_path;
 
 	}
+
 	private function uploadSaveOnDDBB( Request $request, $image_ddbb_path )
 	{
 

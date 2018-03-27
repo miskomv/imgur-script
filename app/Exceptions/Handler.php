@@ -51,6 +51,9 @@ class Handler extends ExceptionHandler
 		if ( $e instanceof InvalidImage )
 			return $e->render( $request );
 
+		if ( $e instanceof ImageNotFound )
+			return $e->render( $request );
+
 		return parent::render( $request, $e );
 	}
 }

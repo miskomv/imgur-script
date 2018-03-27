@@ -36,17 +36,6 @@ class FrontController extends BaseController
 		return response( $this->loadTemplate( 'app.html' ) );
 	}
 
-	public function imageDetails( $image_code )
-	{
-		$image = Image::where( 'image_code', '=', $image_code )->first();
-
-		$this->page_params[ 'page_title' ]       .= ' - Image ' . $image->image_code;
-		$this->page_params[ 'page_description' ] .= ' - Image ' . $image->image_code;
-		$this->page_params[ 'page_image' ]       = $image->path;
-
-		return response( $this->loadTemplate( 'app.html' ) );
-	}
-
 	private function loadTemplate( $file )
 	{
 		$mustache = new \Mustache_Engine();

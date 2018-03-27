@@ -9,7 +9,8 @@ window.onload = function () {
 		router : router,
 		data   : {
 			app   : {
-				loaded: false
+				loaded: false,
+				path  : ''
 			},
 			loader: {
 				visible: false
@@ -32,9 +33,32 @@ window.onload = function () {
 
 		},
 		mounted: function () {
-			this.loadHome();
+			this.checkRoute();
 		},
 		methods: {
+
+			checkRoute          : function () {
+
+				this.app.path = this.$route.path;
+
+				this.loadHome();
+
+				if ( this.app.path !== '/' )
+					setTimeout( this.loadImageURL, 350 );
+
+			},
+			loadImageURL        : function () {
+
+				var endpoint = "/images/info" + this.app.path;
+				axios.get( endpoint ).then( this.loadImageURLCallback );
+
+			},
+			loadImageURLCallback: function ( response ) {
+
+				this.details.data    = response.data;
+				this.details.visible = true;
+				window.history.pushState( null, "", "/" + this.details.data.image_code );
+			},
 
 			isView   : function ( view ) {
 				return (this.view.selected === view);
@@ -152,10 +176,19 @@ window.onload = function () {
 			detailsShow: function ( image ) {
 				this.details.data    = image;
 				this.details.visible = true;
+				window.history.pushState( null, "", "/" + this.details.data.image_code );
 			},
 			detailsHide: function () {
 				this.details.visible = false;
-			}
+				window.history.pushState( null, "", "/" );
+			},
+
+			shareOnFacebook: function () {
+
+			},
+			shareOnTwitter : function () {
+
+			},
 		}
 	} )
 

@@ -60,7 +60,6 @@
 			</div>
 
 			<!--Home-->
-
 			<transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
 				<div class="list" v-if="isView('home')">
 					<h1>Home</h1>
@@ -75,7 +74,6 @@
 			</transition>
 
 			<!--Uploaded images-->
-
 			<transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
 				<div class="list" v-if="isView('uploaded-files')">
 					<h1>Uploaded files</h1>
@@ -92,9 +90,19 @@
 			<!--Image Details-->
 			<transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
 				<div class="details" v-if="details.visible">
-					<i class="fas fa-window-close btn_cerrar" @click.prevent="detailsHide"></i>
+					<a href="#" @click.prevent="detailsHide" class="btn_cerrar">
+						<i class="fas fa-window-close"></i>
+					</a>
 					<div class="share">
-						<i class="fab fa-facebook-square"></i> <i class="fab fa-twitter-square"></i>
+
+						<a href="#" @click.prevent="shareOnFacebook">
+							<i class="fab fa-facebook-square"></i>
+						</a>
+
+						<a href="#" @click.prevent="shareOnTwitter">
+							<i class="fab fa-twitter-square"></i>
+						</a>
+
 					</div>
 					<img :src="details.data.path">
 				</div>

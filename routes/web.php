@@ -15,7 +15,7 @@ $router->group( [ 'prefix' => 'images' ], function() use ( $router ) {
 
 	$router->get( 'list', 'ImagesController@list' );
 	$router->get( 'list/{page:\d+}', 'ImagesController@listPage' );
-	$router->get( 'info/{image_id:\d+}', 'ImagesController@info' );
+	$router->get( 'info/{image_id:\d{16}}', 'ImagesController@infoByImageCode' );
 	$router->post( 'upload', 'ImagesController@upload' );
 } );
 
@@ -31,4 +31,4 @@ $router->group( [ 'prefix' => 'users' ], function() use ( $router ) {
 } );
 
 $router->get( '/', 'FrontController@home' );
-$router->get( '/{image_code:\d{16}}', 'FrontController@imageDetails' );
+$router->get( '/{image_code:\d+}', 'FrontController@home' );

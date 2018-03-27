@@ -157,7 +157,8 @@ transition {
     right: 1rem;
     color: white;
     font-size: 4rem;
-    cursor: pointer; }
+    cursor: pointer;
+    z-index: 999999; }
   .details .share {
     position: fixed;
     width: 100%;
