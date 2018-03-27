@@ -77,8 +77,8 @@
 			<transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
 				<div class="list" v-if="isView('uploaded-files')">
 					<h1>
-						<a href="#" @click.prevent="loadHome"><i class="fas fa-home"></i></a> »
-						Uploaded files
+						<a href="#" @click.prevent="loadHome"><i class="fas fa-home"></i></a>
+						» Uploaded files
 					</h1>
 					<div class="image" v-for="image in image_list" :style="{backgroundImage: 'url(' + image.path + ')'}">
 						<div class="capa_hover" @click.prevent="detailsShow(image)"><i class="fas fa-search-plus"></i></div>
@@ -131,6 +131,12 @@
 			<transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
 				<div class="loader" v-if="loader.visible">
 					<img src="/front/assets/images/loading.svg">
+					<div>
+						<p v-for="upload,index in new_file.uploading" v-if="upload.porcentaje < 100" class="upload">
+							<span v-html="upload.uploaded"></span> / <span v-html="upload.total"></span>
+							<progress :value="upload.porcentaje" max="100"></progress>
+						</p>
+					</div>
 				</div>
 			</transition>
 

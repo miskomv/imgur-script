@@ -58,7 +58,22 @@ transition {
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
   display: flex;
-  justify-content: center; }
+  justify-content: center;
+  flex-direction: column;
+  align-items: center; }
+  .loader div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 85%; }
+    .loader div .upload {
+      text-align: center;
+      color: white;
+      font-size: 2rem;
+      padding: 1rem;
+      width: 30rem;
+      margin: 0.5rem;
+      background: #A1B8C3; }
 
 /* New File */
 .new_file {

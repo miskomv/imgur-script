@@ -24,7 +24,8 @@ window.onload = function () {
 			new_file: {
 				visible        : false,
 				uploading_items: 0,
-				errors         : false
+				errors         : false,
+				uploading      : [],
 			},
 			details : {
 				visible: false,
@@ -105,14 +106,10 @@ window.onload = function () {
 				this.$refs[ 'image_file' ].click();
 			},
 			uploadFileItemsSelected: function () {
-
-				this.loader.visible = true;
 				this.uploadFiles( this.$refs[ 'image_file' ].files );
 			},
 
 			uploadFileDropItems: function ( event ) {
-
-				this.loader.visible = true;
 
 				this.uploadFilePrevent( event );
 
@@ -129,8 +126,10 @@ window.onload = function () {
 
 			uploadFiles         : function ( files ) {
 
-				this.image_list      = [];
-				this.new_file.errors = false;
+				this.image_list         = [];
+				this.new_file.uploading = [];
+				this.new_file.errors    = false;
+				this.loader.visible     = true;
 				this.setView( 'uploaded-files' );
 
 				for ( var i = 0; i < files.length; i++ )
@@ -144,7 +143,22 @@ window.onload = function () {
 				var formData = new FormData();
 				formData.append( 'imagen', file );
 
-				axios.post( "/images/upload", formData ).then( this.uploadFileCallbackOK ).catch( this.uploadFileCallbackKO );
+				var upload_id   = this.new_file.uploading.length;
+				var upload_info = { uploaded: 0, total: 0, porcentaje: 0 };
+				this.new_file.uploading.push( upload_info );
+
+				var handler = this;
+				var config  = {
+					onUploadProgress: function ( uploadData ) {
+
+						var upload_loaded = uploadData.loaded;
+						var upload_total  = uploadData.total;
+
+						handler.uploadProgress( upload_id, upload_loaded, upload_total );
+					}
+				};
+
+				axios.post( "/images/upload", formData, config ).then( this.uploadFileCallbackOK ).catch( this.uploadFileCallbackKO );
 
 			},
 			uploadFileCallbackOK: function ( response ) {
@@ -177,6 +191,14 @@ window.onload = function () {
 				if ( this.image_list.length === 0 )
 					this.setView( 'home' );
 			},
+			uploadProgress      : function ( upload_id, upload_loaded, upload_total ) {
+
+				var porcentaje = Math.round( (upload_loaded * 100) / upload_total );
+
+				this.new_file.uploading[ upload_id ].uploaded   = (Math.round( upload_loaded / 1024 * 100 ) / 100) + ' kb';
+				this.new_file.uploading[ upload_id ].total      = (Math.round( upload_loaded / 1024 * 100 ) / 100) + ' kb';
+				this.new_file.uploading[ upload_id ].porcentaje = porcentaje;
+			},
 
 			detailsShow: function ( image ) {
 				this.details.data    = image;
@@ -193,7 +215,7 @@ window.onload = function () {
 			},
 			shareOnTwitter : function () {
 
-			},
+			}
 		}
 	} )
 
