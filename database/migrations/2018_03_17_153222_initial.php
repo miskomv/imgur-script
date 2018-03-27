@@ -17,7 +17,7 @@ class Initial extends Migration
 
 		Schema::create( 'users', function( Blueprint $table ) {
 			$table->increments( 'id' );
-			$table->string( 'email' );
+			$table->string( 'email', 180 );
 			$table->string( 'password' );
 			$table->timestamps();
 
@@ -28,13 +28,13 @@ class Initial extends Migration
 			$table->increments( 'id' );
 			$table->integer( 'user_id', false, true )->nullable();
 			$table->string( 'name' );
-			$table->string( 'path' );
-			$table->string( 'image_code' );
+			$table->string( 'path', 180 );
+			$table->string( 'image_code', 180 );
 			$table->string( 'ip' );
 			$table->timestamps();
 
 			$table->unique( 'path' );
-			$table->index( [ 'image_code' ] );
+			$table->unique( 'image_code' ) ;
 
 			$table->foreign( 'user_id' )->references( 'id' )->on( 'users' )->onDelete('cascade')->onUpdate('cascade');
 		} );
