@@ -19,7 +19,7 @@ $router->group( [ 'prefix' => 'images' ], function() use ( $router ) {
 	$router->post( 'upload', 'ImagesController@upload' );
 } );
 
-$router->group( [ 'prefix' => 'users' ], function() use ( $router ) {
+/*$router->group( [ 'prefix' => 'users' ], function() use ( $router ) {
 
 	$router->post( 'login', 'UserController@login' );
 	$router->post( 'register', 'UserController@login' );
@@ -28,7 +28,7 @@ $router->group( [ 'prefix' => 'users' ], function() use ( $router ) {
 		$router->post( 'update', [ 'middleware' => 'auth', 'uses' => 'UserController@update' ] );
 	} );
 
-} );
+} );*/
 
 $router->get( '/', 'FrontController@home' );
 $router->get( '/{image_code:\d+}', 'FrontController@home' );
