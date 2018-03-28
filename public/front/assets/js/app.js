@@ -211,10 +211,10 @@ window.onload = function () {
 			},
 
 			shareOnFacebook: function () {
-
+				window.open( this.details.data.facebook_link, "Share", "width=560,height=360,toolbar=no,status=no,resizable=no,menubar=no,titlebar=no" );
 			},
 			shareOnTwitter : function () {
-
+				window.open( this.details.data.twitter_link, "Share", "width=560,height=360,toolbar=no,status=no,resizable=no,menubar=no,titlebar=no" );
 			}
 		}
 	} )
