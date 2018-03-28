@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
-    <title>{{$page_title}}</title>
+    <title>{{ $page_title }}</title>
     <header>
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 
-        <meta name="description" content="{{$page_description}}" />
-        <meta name="keywords" content="{{$page_keywords}}" />
+        <meta name="description" content="{{ $page_description }}" />
+        <meta name="keywords" content="{{ $page_keywords }}" />
 
         <!--Responsive-->
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -13,19 +13,19 @@
         <meta name="viewport" id="viewport" content="initial-scale=1,minimum-scale=1,width=device-width,height=device-height,target-densitydpi=device-dpi,user-scalable=no" />
 
         <!--Facebook-->
-        <meta property="og:url" content="http://{{$page_domain}}{{$page_url}}" />
+        <meta property="og:url" content="http://{{ $page_domain }}{{ $page_url }}" />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content="http://{{$page_domain}}{{$page_image}}" />
+        <meta property="og:image" content="http://{{ $page_domain }}{{ $page_image }}" />
         <meta property="og:image:width" content="600" />
         <meta property="og:image:height" content="315" />
-        <meta property="og:description" content="{{$page_description}}" />
+        <meta property="og:description" content="{{ $page_description }}" />
 
         <!--Twitter-->
         <meta name="twitter:site" content="@imgur" />
-        <meta name="twitter:domain" content="{{$page_domain}}" />
+        <meta name="twitter:domain" content="{{ $page_domain }}" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="http://{{$page_domain}}{{$page_image}}" />
-        <meta name="twitter:description" content="{{$page_description}}" />
+        <meta name="twitter:image" content="http://{{ $page_domain }}{{ $page_image }}" />
+        <meta name="twitter:description" content="{{ $page_description }}" />
 
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i" rel="stylesheet">
         <link rel="stylesheet" href="{{ URL::asset('front/assets/css/animate.min.css') }}">
