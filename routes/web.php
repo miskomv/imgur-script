@@ -31,4 +31,4 @@ $router->group( [ 'prefix' => 'images' ], function() use ( $router ) {
 } );*/
 
 $router->get( '/', 'FrontController@home' );
-$router->get( '/{image_code:\d+}', 'FrontController@home' );
+$router->get( '/{image_code:\d+}', 'FrontController@imageDetails' );

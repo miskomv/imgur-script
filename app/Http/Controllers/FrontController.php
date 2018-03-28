@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Image;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class FrontController extends BaseController
@@ -30,6 +31,21 @@ class FrontController extends BaseController
 
 	public function home()
 	{
+		return view( 'front.app', $this->page_params );
+	}
+
+	public function imageDetails( $image_code )
+	{
+		$img = Image::where( 'image_code', '=', $image_code )->first();
+
+		if ( is_null( $img ) )
+			return redirect( "/" );
+
+		$this->page_params[ 'page_title' ]       .= ' - Image ' . $image_code;
+		$this->page_params[ 'page_description' ] .= ' - Image ' . $image_code;
+		$this->page_params[ 'page_keywords' ]    .= ', Image ' . $image_code;
+		$this->page_params[ 'page_image' ]       = $img->path;
+
 		return view( 'front.app', $this->page_params );
 	}
 }
