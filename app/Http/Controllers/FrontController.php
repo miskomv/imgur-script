@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class FrontController extends BaseController
