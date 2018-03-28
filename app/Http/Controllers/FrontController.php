@@ -32,6 +32,5 @@ class FrontController extends BaseController
 	public function home()
 	{
 		return view( 'front.app', $this->page_params );
-		//return response( $this->loadTemplate( 'app.html' ) );
 	}
 }
