@@ -8,8 +8,6 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 class FrontController extends BaseController
 {
 
-	CONST HTML_PATH = 'front/';
-
 	private $page_domain      = '';
 	private $page_url         = '';
 	private $page_title       = 'Imgur MV Script';
@@ -33,12 +31,7 @@ class FrontController extends BaseController
 
 	public function home()
 	{
-		return response( $this->loadTemplate( 'app.html' ) );
-	}
-
-	private function loadTemplate( $file )
-	{
-		$mustache = new \Mustache_Engine();
-		return $mustache->render( file_get_contents( self::HTML_PATH . $file ), $this->page_params );
+		return view( 'front.app', $this->page_params );
+		//return response( $this->loadTemplate( 'app.html' ) );
 	}
 }
