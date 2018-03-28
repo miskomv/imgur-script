@@ -6,14 +6,11 @@ use App\Exceptions\InvalidImage;
 use App\Exceptions\InvalidParams;
 use App\Image;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManager;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class ImagesController extends BaseController
 {
-
-	const IMAGES_AT_HOME = 32;
-	const IMAGES_X_PAGE  = 16;
-	const IMAGES_PATH    = 'uploads/';
 
 	public function __construct()
 	{
@@ -21,12 +18,12 @@ class ImagesController extends BaseController
 
 	public function list()
 	{
-		return Image::orderBy( 'id', 'desc' )->take( self::IMAGES_AT_HOME )->get();
+		return Image::orderBy( 'id', 'desc' )->take( env( 'IMAGES_AT_HOME' ) )->get();
 	}
 
 	public function listPage( $page )
 	{
-		return Image::orderBy( 'id', 'desc' )->skip( $page * self::IMAGES_X_PAGE )->take( self::IMAGES_X_PAGE )->get();
+		return Image::orderBy( 'id', 'desc' )->skip( $page * env( 'IMAGES_X_PAGE' ) )->take( env( 'IMAGES_X_PAGE' ) )->get();
 	}
 
 	public function infoByImageCode( $image_code )
@@ -44,8 +41,10 @@ class ImagesController extends BaseController
 	{
 		$this->uploadCheckIfValid( $request );
 
-		$image_ddbb_path = $this->uploadSaveInDisk( $request );
-		$img             = $this->uploadSaveOnDDBB( $request, $image_ddbb_path );
+		$image_physical_path = $this->uploadSaveInDisk( $request );
+		$this->makeThumbnail( $image_physical_path );
+
+		$img = $this->uploadSaveOnDDBB( $request, $image_physical_path );
 
 		return $img;
 
@@ -83,17 +82,17 @@ class ImagesController extends BaseController
 		$client_extension = $request->imagen->getClientOriginalExtension();
 
 		$image_name          = time() . rand( 100000, 999999 ) . '.' . $client_extension;
-		$image_physical_path = self::IMAGES_PATH . $image_name;
-		$image_ddbb_path     = "/" . $image_physical_path;
+		$image_physical_path = env( 'IMAGES_PATH' ) . $image_name;
 
 		move_uploaded_file( $_FILES[ 'imagen' ][ 'tmp_name' ], $image_physical_path );
 
-		return $image_ddbb_path;
+		return $image_physical_path;
 
 	}
 
-	private function uploadSaveOnDDBB( Request $request, $image_ddbb_path )
+	private function uploadSaveOnDDBB( Request $request, $image_physical_path )
 	{
+		$image_ddbb_path = "/" . $image_physical_path;
 
 		$img             = new Image();
 		$img->user_id    = NULL;
@@ -104,5 +103,17 @@ class ImagesController extends BaseController
 		$img->save();
 
 		return $img;
+	}
+
+	private function makeThumbnail( $original_image_path )
+	{
+		$thumb_path = $original_image_path . env( 'THUMB_SUFFIX' );
+
+		$manager = new ImageManager( array( 'driver' => env( 'IMAGES_DRIVER' ) ) );
+
+		$img = $manager->make( $original_image_path );
+		$img->resize( env( 'THUMB_WIDTH' ), env( 'THUMB_HEIGHT' ), function( $constraint ) { $constraint->aspectRatio(); } );
+		$img->save( $thumb_path );
+
 	}
 }

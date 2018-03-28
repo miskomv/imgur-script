@@ -63,14 +63,11 @@
             <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
                 <div class="list" v-if="isView('home')">
                     <h1>Home</h1>
-                    <div class="image" v-for="image in image_list" :style="{backgroundImage: 'url(' + image.path + ')'}">
+                    <div class="image" v-for="image in image_list" :style="{backgroundImage: 'url(' + image.thumbnail + ')'}">
                         <div class="capa_hover" @click.prevent="detailsShow(image)"><i class="fas fa-search-plus"></i>
                         </div>
                     </div>
-                    <div class="image hidden"></div>
-                    <div class="image hidden"></div>
-                    <div class="image hidden"></div>
-                    <div class="image hidden"></div>
+                    <div class="image hidden" v-for="i in 8"></div>
                 </div>
             </transition>
 
@@ -81,14 +78,11 @@
                         <a href="#" @click.prevent="loadHome"><i class="fas fa-home"></i></a>
                         » Uploaded files
                     </h1>
-                    <div class="image" v-for="image in image_list" :style="{backgroundImage: 'url(' + image.path + ')'}">
+                    <div class="image" v-for="image in image_list" :style="{backgroundImage: 'url(' + image.thumbnail + ')'}">
                         <div class="capa_hover" @click.prevent="detailsShow(image)"><i class="fas fa-search-plus"></i>
                         </div>
                     </div>
-                    <div class="image hidden"></div>
-                    <div class="image hidden"></div>
-                    <div class="image hidden"></div>
-                    <div class="image hidden"></div>
+                    <div class="image hidden" v-for="i in 8"></div>
                 </div>
             </transition>
 

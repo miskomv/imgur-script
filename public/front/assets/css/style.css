@@ -130,8 +130,8 @@ transition {
     font-size: 4rem;
     color: #2A3132; }
   .list .image {
-    width: 24%;
-    height: 30rem;
+    width: 20rem;
+    height: 20rem;
     margin: 0.5%;
     background-size: contain;
     background-color: #2A3132;
