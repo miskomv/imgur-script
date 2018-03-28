@@ -31,6 +31,7 @@ Add additional notes about how to deploy this on a live system
 
 
 * [MisKo](http://www.mediavida.com/id/MisKo) who participated in this project.
+* [Troyer](http://www.mediavida.com/id/Troyer) who made this readme.
 
 ## License
 
