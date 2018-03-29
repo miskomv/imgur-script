@@ -132,7 +132,7 @@ transition {
   .list .image {
     width: 20rem;
     height: 20rem;
-    margin: 0.5%;
+    margin: 0.5rem;
     background-size: contain;
     background-color: #2A3132;
     background-position: center;
@@ -194,22 +194,23 @@ transition {
 /* Responsive */
 @media (max-width: 1024px) {
   .list .image {
-    height: 20rem; } }
+    width: 18rem;
+    height: 18rem; } }
 
 @media (max-width: 768px) {
   .list .image {
-    width: 31%;
-    margin: 1%; } }
+    width: 17rem;
+    height: 17rem; } }
 
 @media (max-width: 414px) {
   .list .image {
-    width: 48%; }
+    width: 17.5rem;
+    height: 17.5rem; }
   .new_file .popup p {
     font-size: 2rem;
     padding: 3rem; } }
 
-@media (max-width: 360px) {
+@media (max-width: 375px) {
   .list .image {
-    width: 100%;
-    height: 22rem;
-    margin: 0 0 2rem; } }
+    width: 15rem;
+    height: 15rem; } }
