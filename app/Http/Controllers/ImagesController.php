@@ -39,6 +39,9 @@ class ImagesController extends BaseController
 
 	public function upload( Request $request )
 	{
+		$this->checkIfBanned( $request );
+		$this->checkMaxUploadsInterval( $request );
+
 		$this->uploadCheckIfValid( $request );
 
 		$image_physical_path = $this->uploadSaveInDisk( $request );
@@ -47,6 +50,25 @@ class ImagesController extends BaseController
 		$img = $this->uploadSaveOnDDBB( $request, $image_physical_path );
 
 		return $img;
+
+	}
+
+	private function checkIfBanned( Request $request )
+	{
+		$banned_ips = [ '213.0.96.101' ];
+
+		if ( in_array( $request->ip(), $banned_ips ) )
+			throw new InvalidImage( 'Idiot user detected.' );
+	}
+
+	private function checkMaxUploadsInterval( Request $request )
+	{
+		$user_ip    = $request->ip();
+		$from_time  = date( 'Y-m-d H:i:s', strtotime( '-60 minutes' ) );
+		$num_images = Image::where( 'ip', '=', $user_ip )->where( 'created_at', '>=', $from_time )->count();
+
+		if ( $num_images > 5 )
+			throw new InvalidImage( "You can't upload more photos now." );
 
 	}
 
@@ -112,7 +134,9 @@ class ImagesController extends BaseController
 		$manager = new ImageManager( array( 'driver' => env( 'IMAGES_DRIVER' ) ) );
 
 		$img = $manager->make( $original_image_path );
-		$img->resize( env( 'THUMB_WIDTH' ), env( 'THUMB_HEIGHT' ), function( $constraint ) { $constraint->aspectRatio(); } );
+		$img->resize( env( 'THUMB_WIDTH' ), env( 'THUMB_HEIGHT' ), function( $constraint ) {
+			$constraint->aspectRatio();
+		} );
 		$img->save( $thumb_path );
 
 	}
